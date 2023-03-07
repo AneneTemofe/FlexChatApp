@@ -58,7 +58,22 @@
                 android:textSize="20sp" />
 
             <EditText
-                android:id="@+id/editTextTextPersonName"
+                android:id="@+id/edtUsername"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="32dp"
+                android:background="@drawable/grey_background"
+                android:ems="10"
+                android:hint="Username"
+                android:inputType="textPersonName"
+                android:padding="10dp"
+                android:textColorHint="#858585"
+                android:textSize="16dp" />
+
+            <EditText
+                android:id="@+id/edtEmail"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginStart="32dp"
@@ -73,7 +88,7 @@
                 android:textSize="16dp" />
 
             <EditText
-                android:id="@+id/editTextTextPersonName"
+                android:id="@+id/edtPassword"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginStart="32dp"
@@ -88,90 +103,29 @@
                 android:textSize="16dp" />
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/btnSubmit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Login"
-                android:background="@drawable/purple_background"
-                android:textSize="23sp"
-                android:textColor="#ffffff"
-                android:textStyle="bold"
                 android:layout_marginStart="32dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginTop="32dp"/>
-
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="forgotten password?"
-                android:textColor="#04336a"
-                android:textAlignment="viewEnd"
-                android:layout_marginEnd="32dp"
-                android:layout_marginTop="16dp"
-                android:textSize="16sp"/>
-
-            <View
-                android:id="@+id/view"
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginStart="32dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginBottom="16dp"
-                android:background="#707070"
                 android:layout_marginTop="32dp"
-                />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
-                android:orientation="horizontal"
-                tools:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/button3"
-                    style="@android:style/Widget.Button"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:layout_weight="0.5"
-                    android:background="@drawable/grey_background"
-                    android:drawableStart="@drawable/google"
-                    android:drawablePadding="10dp"
-                    android:padding="16dp"
-                    android:text="Google Login"
-                    android:textColor="#636363"
-                    android:textStyle="bold" />
-
-                <Button
-                    android:id="@+id/button5"
-                    style="@android:style/Widget.Button"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
-                    android:background="@drawable/grey_background"
-                    android:drawableStart="@drawable/facebook"
-                    android:drawablePadding="10dp"
-                    android:padding="16dp"
-                    android:text="Facebook Login"
-                    android:textColor="#636363"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
+                android:background="@drawable/purple_background"
+                android:text="Signup"
+                android:textColor="#ffffff"
+                android:textSize="23sp"
+                android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/txtLoginInfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
-                android:text="Don't have an account? Signup"
+                android:layout_marginEnd="32dp"
+                android:text="Already have an account? Log in"
                 android:textAlignment="center"
                 android:textColor="#04336a"
-                android:textSize="16sp"
-                tools:layout_marginEnd="32dp" />
+                android:textSize="16sp" />
+
         </LinearLayout>
     </ScrollView>
 
