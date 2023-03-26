@@ -57,6 +57,11 @@ public class login_activity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
 
+         if (auth.getCurrentUser() != null){
+             startActivity( new Intent(login_activity.this,dashboard_activity.class));
+             finish();
+         }
+
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

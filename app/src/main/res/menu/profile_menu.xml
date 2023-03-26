@@ -1,7 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/menu_item_profile" android:icon="@drawable/account_img" app:showAsAction="always">
+
+    <item
+        app:showAsAction="always"
+        android:title=""
+        android:icon="@drawable/account_img">
+
+        <menu>
+            <item
+                android:icon="@drawable/ic_baseline_settings_24"
+                android:title="Profile Account"
+                app:showAsAction="never"
+                android:id="@+id/profile_account"/>
+
+            <item
+                android:icon="@drawable/ic_baseline_logout_24"
+                android:title="Logout"
+                app:showAsAction="never"
+                android:id="@+id/logout"/>
+        </menu>
 
     </item>
+
+
+
+
 </menu>
