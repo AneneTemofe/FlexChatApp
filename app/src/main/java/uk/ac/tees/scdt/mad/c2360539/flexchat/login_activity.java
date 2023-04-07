@@ -31,11 +31,24 @@ public class login_activity extends AppCompatActivity {
 
     private EditText edtPassword, edtEmail;
     private Button btnSubmit;
-    private TextView forgoTv;
+    private TextView forgotPasswordButton , SignUpButton;
 
     boolean isSigningUp ;
 
     FirebaseAuth auth;
+    FirebaseUser firebaseUser;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        if(firebaseUser != null)
+        {
+            Intent intent = new Intent(login_activity.this, dashboard_activity.class);
+            startActivity(intent);
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,11 +56,19 @@ public class login_activity extends AppCompatActivity {
         setContentView(R.layout.login_activity);
 
 
-        forgoTv = findViewById(R.id.forgoTv);
-        forgoTv.setOnClickListener(new View.OnClickListener() {
+        forgotPasswordButton = findViewById(R.id.forgotPasswordButton);
+        forgotPasswordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(login_activity.this, forgotpassword_activity.class));
+                startActivity(new Intent(login_activity.this, forgotPassword_activity.class));
+            }
+        });
+
+        SignUpButton = findViewById(R.id.SignUpButton);
+        SignUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity( new Intent(login_activity.this,signup_activity.class));
             }
         });
 
@@ -56,6 +77,11 @@ public class login_activity extends AppCompatActivity {
         btnSubmit = findViewById(R.id.btnSubmit);
 
         auth = FirebaseAuth.getInstance();
+
+         if (auth.getCurrentUser() != null){
+             startActivity( new Intent(login_activity.this,dashboard_activity.class));
+             finish();
+         }
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
