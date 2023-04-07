@@ -10,20 +10,42 @@
         android:id="@+id/imageView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/top_background" />
+        android:src="@drawable/top_background"
+        tools:ignore="MissingConstraints" />
 
-    <ImageView
-        android:id="@+id/imageView9"
+<!--    <androidx.cardview.widget.CardView-->
+<!--        android:id="@+id/cardView2"-->
+<!--        android:layout_width="247dp"-->
+<!--        android:layout_height="183dp"-->
+<!--        android:layout_marginTop="32dp"-->
+<!--        app:cardCornerRadius="90dp"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/imageView8"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent">-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/UserProfileImage"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:scaleType="centerCrop"-->
+<!--            android:src="@drawable/ic_baseline_account_circle_24" />-->
+
+<!--    </androidx.cardview.widget.CardView>-->
+
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/UserProfileImage"
         android:layout_width="247dp"
         android:layout_height="183dp"
         android:layout_marginTop="32dp"
-        android:src="@drawable/profileimage"
+        android:src="@drawable/profiledefault"
         app:layout_constraintEnd_toEndOf="@+id/imageView8"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/updatedUserNameProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -31,20 +53,20 @@
         android:textSize="24dp"
         android:textColor="#ffffff"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/imageView9"
-        app:layout_constraintStart_toStartOf="@+id/imageView9"
-        app:layout_constraintTop_toBottomOf="@+id/imageView9" />
+        app:layout_constraintEnd_toEndOf="@+id/UserProfileImage"
+        app:layout_constraintStart_toStartOf="@+id/UserProfileImage"
+        app:layout_constraintTop_toBottomOf="@+id/UserProfileImage" />
 
     <TextView
-        android:id="@+id/textView11"
+        android:id="@+id/updatedEmailProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="user@email,com"
+        android:text="user@email.com"
         android:textSize="24dp"
         android:textColor="#ffffff"
-        app:layout_constraintEnd_toEndOf="@+id/textView4"
-        app:layout_constraintStart_toStartOf="@+id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintEnd_toEndOf="@+id/updatedUserNameProfile"
+        app:layout_constraintStart_toStartOf="@+id/updatedUserNameProfile"
+        app:layout_constraintTop_toBottomOf="@+id/updatedUserNameProfile" />
 
 
     <LinearLayout
@@ -68,22 +90,21 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/edtUpdateUsername"
+            android:id="@+id/updateUsername"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="24dp"
             android:background="@drawable/edittext_background"
             android:ems="10"
-            android:hint=""
-            android:inputType="textEmailAddress"
+            android:inputType="text"
             android:padding="8dp"
             android:textColor="#000000"
             android:textColorHint="#8e8e8e"
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/textView7"
+            android:id="@+id/Mobile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Mobile"
@@ -92,7 +113,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/edtPhoneNumber"
+            android:id="@+id/updatePhoneNumber"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="8dp"
@@ -107,7 +128,7 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/forgoTv"
+            android:id="@+id/forgotPass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Forgot Your Password?"
@@ -126,13 +147,12 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
                 android:background="#707070" />
-
         </LinearLayout>
 
 
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnSubmit"
+            android:id="@+id/btnUpdate"
             style="@android:style/Widget.Button"
             android:layout_width="match_parent"
             android:layout_height="55dp"

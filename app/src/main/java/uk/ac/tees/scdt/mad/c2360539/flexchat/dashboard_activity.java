@@ -9,13 +9,18 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class dashboard_activity extends AppCompatActivity {
+
+    FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard_activity);
 
+        auth = FirebaseAuth.getInstance();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -37,6 +42,16 @@ public class dashboard_activity extends AppCompatActivity {
             startActivity(new Intent(dashboard_activity.this, Profile_activity.class));
         }
 
+        if (item.getItemId() == R.id.logout){
+            auth.signOut();
+            startActivity(new Intent(dashboard_activity.this, login_activity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            finish();
+        }
+
         return super.onOptionsItemSelected(item);
     }
+
+
+
+
 }
