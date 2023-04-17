@@ -44,7 +44,7 @@ public class login_activity extends AppCompatActivity {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         if(firebaseUser != null)
         {
-            Intent intent = new Intent(login_activity.this, dashboard_activity.class);
+            Intent intent = new Intent(login_activity.this, MainActivity.class);
             startActivity(intent);
         }
     }
@@ -79,7 +79,7 @@ public class login_activity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
 
          if (auth.getCurrentUser() != null){
-             startActivity( new Intent(login_activity.this,dashboard_activity.class));
+             startActivity( new Intent(login_activity.this,MainActivity.class));
              finish();
          }
 
@@ -165,7 +165,7 @@ public class login_activity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     Toast.makeText(login_activity.this, "Logged in successfully", Toast.LENGTH_SHORT).show();
-                    startActivity( new Intent(login_activity.this,dashboard_activity.class));
+                    startActivity( new Intent(login_activity.this,MainActivity.class));
                     finish();
                 }else{
                     Toast.makeText(login_activity.this, task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
