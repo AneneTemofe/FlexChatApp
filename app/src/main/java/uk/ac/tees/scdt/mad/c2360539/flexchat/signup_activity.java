@@ -140,7 +140,7 @@ public class signup_activity extends AppCompatActivity {
 
                     if (imageControl){
                         UUID randomID = UUID.randomUUID();
-                        String imageName  = "images/"+randomID+"jpg";
+                        String imageName  = "image/"+randomID+"jpg";
                         storageReference.child(imageName).putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                             @Override
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -149,7 +149,7 @@ public class signup_activity extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(Uri uri) {
                                         String filePath = uri.toString();
-                                        reference.child("users").child(firebaseAuth.getUid()).child("image").setValue(filePath).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        reference.child("Users").child(firebaseAuth.getUid()).child("image").setValue(filePath).addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void unused) {
                                                 Toast.makeText( signup_activity.this, "write to database is successful.", Toast.LENGTH_SHORT).show();
@@ -189,15 +189,7 @@ public class signup_activity extends AppCompatActivity {
 //
 //    }
 
-    private void imageChooser(){
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent, 1);
-
-    }
-
-//    @Override
+    //    @Override
 //    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 //        super.onActivityResult(requestCode, resultCode, data);
 //
@@ -214,12 +206,20 @@ public class signup_activity extends AppCompatActivity {
 //        }
 //    }
 
+    private void imageChooser(){
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, 1);
+
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == 1 && requestCode == RESULT_OK && data != null){
+        if(requestCode == 1 && resultCode == RESULT_OK && data != null){
             imageUri = data.getData();
             //imageViewCircle.setImageURI(imageUri);
             Picasso.get().load(imageUri).into(imageViewCircle);

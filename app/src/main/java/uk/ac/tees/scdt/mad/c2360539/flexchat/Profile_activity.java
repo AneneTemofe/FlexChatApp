@@ -120,7 +120,7 @@ public class Profile_activity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == 1 && requestCode == RESULT_OK && data != null){
+        if(requestCode == 1 && resultCode == RESULT_OK && data != null){
             imageUri = data.getData();
             //imageViewCircle.setImageURI(imageUri);
             Picasso.get().load(imageUri).into(userProfileImage);
@@ -153,7 +153,7 @@ public class Profile_activity extends AppCompatActivity {
                         @Override
                         public void onSuccess(Uri uri) {
                             String filePath = uri.toString();
-                            reference.child("users").child(auth.getUid()).child("image").setValue(filePath).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            reference.child("Users").child(auth.getUid()).child("image").setValue(filePath).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
                                     Toast.makeText( Profile_activity.this, "write to database is successful.", Toast.LENGTH_SHORT).show();
