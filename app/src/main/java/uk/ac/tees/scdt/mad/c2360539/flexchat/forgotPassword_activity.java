@@ -20,7 +20,7 @@ public class forgotPassword_activity extends AppCompatActivity {
 
     private Button btnSubmitForgotPassword;
     private EditText edtEmailForgotPassword;
-    private TextView signUpButtonForgotPassword ;
+    private TextView signUpButtonForgotPassword;
 
     FirebaseAuth auth;
 

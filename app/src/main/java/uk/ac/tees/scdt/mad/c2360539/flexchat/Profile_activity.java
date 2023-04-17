@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,6 +20,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -53,6 +56,7 @@ public class Profile_activity extends AppCompatActivity {
     StorageReference storageReference;
 
     Uri imageUri;
+    String image;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -67,16 +71,17 @@ public class Profile_activity extends AppCompatActivity {
            btnUpdate = findViewById(R.id.btnUpdate);
 
            // textview name
-        updatedUserNameProfile = findViewById(R.id.updatedUserNameProfile);
-        updatedEmailProfile = findViewById(R.id.updatedEmailProfile);
+           updatedUserNameProfile = findViewById(R.id.updatedUserNameProfile);
+           updatedEmailProfile = findViewById(R.id.updatedEmailProfile);
 
 
-          forgotPass.setOnClickListener(new View.OnClickListener() {
+        forgotPass.setOnClickListener(new View.OnClickListener() {
               @Override
               public void onClick(View view) {
                   startActivity(new Intent(Profile_activity.this, forgotPassword_activity.class));
               }
           });
+
 
 
         database = FirebaseDatabase.getInstance();
@@ -105,7 +110,7 @@ public class Profile_activity extends AppCompatActivity {
 
     private void imageChooser(){
         Intent intent = new Intent();
-        intent.setType("images/*");
+        intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent, 1);
 
@@ -115,7 +120,7 @@ public class Profile_activity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == 1 && requestCode == RESULT_OK && data != null){
+        if(requestCode == 1 && resultCode == RESULT_OK && data != null){
             imageUri = data.getData();
             //imageViewCircle.setImageURI(imageUri);
             Picasso.get().load(imageUri).into(userProfileImage);
@@ -148,7 +153,7 @@ public class Profile_activity extends AppCompatActivity {
                         @Override
                         public void onSuccess(Uri uri) {
                             String filePath = uri.toString();
-                            reference.child("users").child(auth.getUid()).child("image").setValue(filePath).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            reference.child("Users").child(auth.getUid()).child("image").setValue(filePath).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
                                     Toast.makeText( Profile_activity.this, "write to database is successful.", Toast.LENGTH_SHORT).show();
@@ -165,10 +170,10 @@ public class Profile_activity extends AppCompatActivity {
             });
         }
         else{
-            reference.child("Users").child(auth.getUid()).child("image").setValue("null");
+            reference.child("Users").child(auth.getUid()).child("image").setValue(image);
         }
         Toast.makeText( Profile_activity.this, "Profile Updated successful.", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(Profile_activity.this, dashboard_activity.class);
+        Intent intent = new Intent(Profile_activity.this, MainActivity.class);
         intent.putExtra("userName",userName);
         intent.putExtra("phone",phone );
         startActivity(intent);
@@ -181,14 +186,13 @@ public class Profile_activity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String name = snapshot.child("userName").getValue().toString();
-                String image = snapshot.child("image").getValue().toString();
+                image = snapshot.child("image").getValue().toString();
                 String phone = snapshot.child("phone").getValue().toString();
-                //String email = snapshot.child("email").getValue().toString();
+                String email = snapshot.child("email").getValue().toString();
                 updateUsername.setText(name);
                 updatePhoneNumber.setText(phone);
                 updatedUserNameProfile.setText(name);
-                //updatedEmailProfile.setText(email);
-
+                updatedEmailProfile.setText(email);
 
                 if (image.equals("null")){
                     userProfileImage.setImageResource(R.drawable.profiledefault);
