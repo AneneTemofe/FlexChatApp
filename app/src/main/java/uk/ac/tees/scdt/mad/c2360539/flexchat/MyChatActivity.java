@@ -101,7 +101,6 @@ public class MyChatActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 
     public void getMessage()
