@@ -20,18 +20,19 @@
         android:layout_width="280dp"
         android:layout_height="153dp"
         android:layout_marginTop="80dp"
+        android:layout_marginLeft="65dp"
         android:paddingEnd="@dimen/cardview_default_radius"
         android:src="@drawable/profiledefault" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
+        android:layout_width="380dp"
+        android:layout_gravity="center"
         android:layout_height="wrap_content"
         android:background="@drawable/account_background"
         android:orientation="vertical"
-        android:gravity=""
-        android:layout_marginTop="250dp"
-        android:padding="25dp">
+        android:layout_marginTop="90dp"
+        android:padding="20dp">
 
         <TextView
             android:id="@+id/viewUserNameProfile"

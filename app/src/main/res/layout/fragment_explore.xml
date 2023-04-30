@@ -6,9 +6,26 @@
     tools:context=".ExploreFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ImageView
+        android:layout_width="350dp"
+        android:layout_height="450dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="25dp"
+        android:background="@color/white"
+        android:src="@drawable/ic_baseline_camera_alt_24"
+        android:id="@+id/imageCamera"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnCamera"
+        style="@android:style/Widget.Button"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="55dp"
+        android:layout_marginTop="650sp"
+        android:background="@drawable/background_button"
+        android:text="Take Picture"
+        android:textColor="#ffffff"
+        android:textSize="24sp"
+        android:layout_below="@+id/imageCamera"
+        android:textStyle="bold" />
 
 </FrameLayout>

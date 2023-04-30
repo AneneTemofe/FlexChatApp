@@ -136,8 +136,6 @@
             android:text="Forgot Your Password?"
             android:textColor="#4d4d4d" />
 
-
-
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnUpdate"
             style="@android:style/Widget.Button"
