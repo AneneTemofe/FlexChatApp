@@ -1,5 +1,7 @@
 package uk.ac.tees.scdt.mad.c2360539.flexchat;
 
+import static android.util.Log.d;
+
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -9,6 +11,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +21,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -40,6 +45,7 @@ public class AccountFragment extends Fragment {
     private CircleImageView viewUserProfileImage;
     private TextView viewPhoneProfile, viewEmailProfile, viewUpdatedUserNameProfile;
     String image;
+    private static final String TAG = "AccountFragment";
 
     FirebaseDatabase database;
     DatabaseReference reference;
@@ -90,7 +96,7 @@ public class AccountFragment extends Fragment {
     private void showAlertDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder( getContext());
         builder.setTitle("Delete User and Related Data?");
-        builder.setMessage("Do you really want to delete your profile and related data? This action is irreveriable");
+        builder.setMessage("Do you really want to delete your profile and related data? This action is irreversible");
 
         //open where to delete click action
         builder.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
@@ -116,7 +122,7 @@ public class AccountFragment extends Fragment {
         alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialogInterface) {
-                alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.lavender));
+                alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.pink));
             }
         });
 
@@ -129,6 +135,7 @@ public class AccountFragment extends Fragment {
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
                     auth.signOut();
+                    deleteUserData();
                     Toast.makeText( getContext(), "User Account is successful Deleted.", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getContext(), login_activity.class);
                     startActivity(intent);
@@ -140,6 +147,40 @@ public class AccountFragment extends Fragment {
                         Toast.makeText( getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
+            }
+        });
+    }
+
+
+    // Delete all the data of the user
+    private void deleteUserData() {
+        FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
+        StorageReference storageReference = firebaseStorage.getReferenceFromUrl(firebaseUser.getPhotoUrl().toString());
+        storageReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Log.d(TAG,"OnSuccess: Photo deleted");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d(TAG,e.getMessage());
+                Toast.makeText( getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // Delete Date from Realtime Database
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users");
+        databaseReference.child(firebaseUser.getUid()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Log.d(TAG,"OnSuccess: User Data deleted");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d(TAG,e.getMessage());
+                Toast.makeText( getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
