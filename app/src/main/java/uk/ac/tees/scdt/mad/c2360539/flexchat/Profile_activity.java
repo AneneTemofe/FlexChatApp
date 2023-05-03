@@ -3,11 +3,18 @@ package uk.ac.tees.scdt.mad.c2360539.flexchat;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.MenuItem;
@@ -47,6 +54,7 @@ public class Profile_activity extends AppCompatActivity {
     private EditText updateUsername, updatePhoneNumber;
     private TextView forgotPass, updatedEmailProfile, updatedUserNameProfile;
     boolean imageControl = false;
+    private  int STORAGE_PERMISSION_CODE = 1;
 
     FirebaseDatabase database;
     DatabaseReference reference;
@@ -99,14 +107,61 @@ public class Profile_activity extends AppCompatActivity {
             }
         });
 
+//        String[] PERMISSIONS = {
+//                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+//                Manifest.permission.READ_EXTERNAL_STORAGE
+//        };
+//        ActivityCompat.requestPermissions(Profile_activity.this, PERMISSIONS, 1);
+
         userProfileImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if (ContextCompat.checkSelfPermission(Profile_activity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+                    //Toast.makeText(Profile_activity.this,"you have already been granted permission", Toast.LENGTH_SHORT).show();
+                    ActivityCompat.requestPermissions(Profile_activity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+                }
                 imageChooser();
+
+
             }
         });
 
     }
+
+    private void requestStoragePermission() {
+
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)){
+            new AlertDialog.Builder(this).setTitle("Permission needed").setMessage("This permission is needed to add a profile picture ")
+                    .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            ActivityCompat.requestPermissions(Profile_activity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+                        }
+                    }).setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    }).create().show();
+        }else {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+        }
+
+    }
+
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+//        if (requestCode == STORAGE_PERMISSION_CODE){
+//            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+//                Toast.makeText(Profile_activity.this," granted permission", Toast.LENGTH_SHORT).show();
+//
+//            }else{
+//                Toast.makeText(Profile_activity.this," granted permission", Toast.LENGTH_SHORT).show();
+//
+//            }
+//        }
+//    }
 
     private void imageChooser(){
         Intent intent = new Intent();
