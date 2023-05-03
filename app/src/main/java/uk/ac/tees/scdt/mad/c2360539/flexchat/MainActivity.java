@@ -58,9 +58,9 @@ public class MainActivity extends AppCompatActivity {
                             setFragement(new ExploreFragment());
                             return true;
 
-                        case R.id.nav_setting:
-                            setFragement(new SettingFragment());
-                            return true;
+//                        case R.id.nav_setting:
+//                            setFragement(new SettingFragment());
+//                            return true;
 
                         case R.id.nav_profile:
                             setFragement(new AccountFragment());
